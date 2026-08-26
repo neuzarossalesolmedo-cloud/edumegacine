@@ -107,26 +107,12 @@
   }
   .hero-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
 
-  /* screen mockup */
-  .screen{
-    margin:56px auto 0; max-width:820px; border:3px solid var(--line);
-    border-radius:14px; background:var(--bg-card); position:relative;
-    box-shadow:0 30px 80px rgba(0,0,0,.6);
+  /* hero banner (estilo pôster, sem fotos reais) */
+  .hero-banner{
+    margin:56px auto 0; max-width:900px; position:relative; border-radius:18px; overflow:hidden;
+    box-shadow:0 30px 90px rgba(0,0,0,.6); border:1px solid var(--line);
   }
-  .screen::before{
-    content:'';position:absolute; inset:-10px; border-radius:20px;
-    border:2px dashed rgba(242,177,58,.25); pointer-events:none;
-  }
-  .screen-bar{
-    display:flex; gap:6px; padding:12px 16px; border-bottom:1px solid var(--line);
-  }
-  .screen-bar span{width:9px; height:9px; border-radius:50%; background:var(--line);}
-  .guide{padding:26px; display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:14px;}
-  .guide div{
-    background:#280707; border:1px solid var(--line); border-radius:8px;
-    padding:14px 10px; text-align:center; font-size:13px; color:var(--muted);
-  }
-  .guide div b{display:block; color:var(--cream); font-family:'Bebas Neue'; font-size:20px; letter-spacing:1px;}
+  .hero-banner svg{display:block; width:100%; height:auto;}
 
   /* ticker */
   .ticker-wrap{
@@ -137,6 +123,58 @@
   .ticker span{font-family:'Bebas Neue'; font-size:20px; color:var(--muted); letter-spacing:2px;}
   .ticker span b{color:var(--gold);}
   @keyframes scroll{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+  /* destaques: banner grande + lista + carrossel */
+  .destaques-grid{display:grid; grid-template-columns:300px 1fr; gap:18px;}
+  .destaques-lista{display:flex; flex-direction:column; gap:10px;}
+  .destaque-item{
+    display:flex; gap:12px; background:var(--bg-card); border:1px solid var(--line);
+    border-radius:8px; padding:10px; align-items:center; cursor:pointer; transition:border-color .15s;
+  }
+  .destaque-item:hover{border-color:var(--gold);}
+  .destaque-item .thumb{
+    width:64px; height:64px; border-radius:6px; flex-shrink:0;
+    background:linear-gradient(135deg,#7a0f0f,#2b0606) url('capas/destaque-1.jpg') center/cover no-repeat;
+  }
+  .destaque-item:nth-child(2) .thumb{background-image:linear-gradient(135deg,#8a2a10,#2b0606), url('capas/destaque-2.jpg');}
+  .destaque-item:nth-child(3) .thumb{background-image:linear-gradient(135deg,#144d2e,#0d1f14), url('capas/destaque-3.jpg');}
+  .destaque-item:nth-child(4) .thumb{background-image:linear-gradient(135deg,#1c2b4d,#101526), url('capas/destaque-4.jpg');}
+  .destaque-item h4{font-size:14px; color:var(--gold-light); margin-bottom:3px;}
+  .destaque-item p{font-size:12px; color:var(--muted); line-height:1.4;}
+
+  .destaque-principal{
+    position:relative; border-radius:10px; overflow:hidden; border:1px solid var(--line);
+    background:linear-gradient(135deg,#7a0f0f,#1a0303) url('capas/destaque-principal.jpg') center/cover no-repeat;
+    min-height:100%; display:flex; align-items:flex-end;
+  }
+  .destaque-principal .scrim{
+    position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(10,2,2,.85) 100%);
+  }
+  .destaque-principal .info{position:relative; z-index:1; padding:24px;}
+  .destaque-principal h3{font-size:30px; color:var(--cream); letter-spacing:1px;}
+  .destaque-principal p{font-size:13px; color:var(--muted); max-width:480px; margin-top:6px;}
+
+  .carrossel-head{display:flex; justify-content:space-between; align-items:center; margin:36px 0 16px;}
+  .carrossel-head h3{font-size:22px; letter-spacing:1px; color:var(--cream);}
+  .carrossel-arrows{display:flex; gap:8px;}
+  .carrossel-arrows button{
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:var(--bg-card);
+    color:var(--gold); cursor:pointer; font-size:14px;
+  }
+  .carrossel-arrows button:hover{border-color:var(--gold);}
+  .carrossel-track{display:flex; gap:16px; overflow-x:auto; scroll-behavior:smooth; padding-bottom:6px;}
+  .carrossel-track::-webkit-scrollbar{height:6px;}
+  .carrossel-track::-webkit-scrollbar-thumb{background:var(--line); border-radius:3px;}
+  .poster-card{flex:0 0 150px;}
+  .poster-cover{
+    width:150px; height:220px; border-radius:8px; border:1px solid var(--line);
+    background:linear-gradient(135deg,#3a0a0a,#1a0303) center/cover no-repeat;
+  }
+  .poster-card p{font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.4;}
+
+  @media(max-width:640px){
+    .destaques-grid{grid-template-columns:1fr;}
+  }
 
   section{padding:80px 0;}
   .section-head{text-align:center; max-width:600px; margin:0 auto 50px;}
@@ -248,15 +286,98 @@
       <a class="btn btn-outline" href="#planos">Ver planos</a>
     </div>
 
-    <div class="screen">
-      <div class="screen-bar"><span></span><span></span><span></span></div>
-      <div class="guide" id="programacao">
-        <div><b>+250</b>canais ao vivo</div>
-        <div><b>4K</b>qualidade de imagem</div>
-        <div><b>+10</b>telas simultâneas*</div>
-        <div><b>24h</b>suporte por WhatsApp</div>
-      </div>
+    <div class="hero-banner" id="programacao">
+      <svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="heroBg" cx="30%" cy="20%" r="90%">
+            <stop offset="0%" stop-color="#5a1010"/>
+            <stop offset="55%" stop-color="#2b0606"/>
+            <stop offset="100%" stop-color="#140303"/>
+          </radialGradient>
+          <linearGradient id="tvScreen" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#3a0a0a"/><stop offset="100%" stop-color="#1a0303"/>
+          </linearGradient>
+        </defs>
+        <rect width="900" height="460" fill="url(#heroBg)"/>
+        <g stroke="#f2b13a" stroke-width="2" opacity=".25">
+          <circle cx="760" cy="90" r="140" fill="none"/>
+          <circle cx="120" cy="380" r="100" fill="none"/>
+        </g>
+
+        <!-- TV grande com grade de conteudo -->
+        <g transform="translate(60,60)">
+          <rect width="430" height="270" rx="10" fill="#0f0202" stroke="#f2b13a" stroke-width="4"/>
+          <rect x="14" y="14" width="402" height="242" rx="4" fill="url(#tvScreen)"/>
+          <g stroke="#f2b13a" stroke-width="1.5" opacity=".5">
+            <line x1="14" y1="94" x2="416" y2="94"/>
+            <line x1="14" y1="174" x2="416" y2="174"/>
+            <line x1="148" y1="14" x2="148" y2="256"/>
+            <line x1="282" y1="14" x2="282" y2="256"/>
+          </g>
+          <circle cx="80" cy="54" r="24" fill="#f2b13a" opacity=".8"/>
+          <path d="M195 40 l30 14 l-30 14 z" fill="#ffe9b8"/>
+          <circle cx="350" cy="54" r="20" fill="none" stroke="#ffe9b8" stroke-width="3"/>
+          <path d="M35 145 q20 -30 40 0 q20 -30 40 0" fill="none" stroke="#f2b13a" stroke-width="3"/>
+          <rect x="165" y="115" width="60" height="60" fill="#ffe9b8" opacity=".8"/>
+          <path d="M300 175 l20 -40 l20 40 z" fill="#f2b13a"/>
+          <circle cx="60" cy="215" r="18" fill="#ffe9b8" opacity=".7"/>
+          <rect x="150" y="200" width="70" height="35" rx="4" fill="#f2b13a" opacity=".7"/>
+          <path d="M300 200 h70 v35 h-70 z" fill="none" stroke="#ffe9b8" stroke-width="3"/>
+          <rect x="180" y="270" width="70" height="14" rx="3" fill="#0f0202" stroke="#f2b13a" stroke-width="3"/>
+          <rect x="140" y="284" width="150" height="12" rx="4" fill="#0f0202" stroke="#f2b13a" stroke-width="3"/>
+        </g>
+
+        <!-- notebook -->
+        <g transform="translate(500,230)">
+          <rect width="220" height="140" rx="8" fill="#0f0202" stroke="#f2b13a" stroke-width="3"/>
+          <rect x="10" y="10" width="200" height="120" fill="#3a0a0a"/>
+          <polygon points="-10,150 230,150 250,175 -30,175" fill="#1a0303" stroke="#f2b13a" stroke-width="2"/>
+          <polygon points="90,55 90,105 130,80" fill="#f2b13a"/>
+        </g>
+
+        <!-- celular -->
+        <g transform="translate(60,340)">
+          <rect width="70" height="130" rx="12" fill="#0f0202" stroke="#f2b13a" stroke-width="3"/>
+          <rect x="6" y="14" width="58" height="102" fill="#3a0a0a"/>
+          <polygon points="28,50 28,80 48,65" fill="#f2b13a"/>
+        </g>
+
+        <!-- controle remoto -->
+        <g transform="translate(770,300) rotate(18)">
+          <rect width="46" height="130" rx="18" fill="#0f0202" stroke="#f2b13a" stroke-width="3"/>
+          <circle cx="23" cy="30" r="9" fill="#ffe9b8"/>
+          <rect x="10" y="55" width="26" height="10" rx="3" fill="#f2b13a"/>
+          <rect x="10" y="72" width="26" height="10" rx="3" fill="#f2b13a"/>
+          <rect x="10" y="89" width="26" height="10" rx="3" fill="#f2b13a"/>
+        </g>
+
+        <!-- bola de futebol -->
+        <g transform="translate(400,370)">
+          <circle r="34" fill="#ffe9b8" stroke="#0f0202" stroke-width="3"/>
+          <polygon points="0,-14 13,-4 8,12 -8,12 -13,-4" fill="#0f0202"/>
+          <path d="M0 -34 L0 -14 M-33 -10 L-13 -4 M33 -10 L13 -4 M-20 30 L-8 12 M20 30 L8 12" stroke="#0f0202" stroke-width="2.5"/>
+        </g>
+
+        <!-- pipoca -->
+        <g transform="translate(490,360)">
+          <path d="M-24 -20 L24 -20 L18 55 L-18 55 Z" fill="#c81e1e" stroke="#ffe9b8" stroke-width="3"/>
+          <path d="M-24 -20 L-30 -35 M-8 -20 L-8 -38 M8 -20 L8 -38 M24 -20 L30 -35" stroke="#ffe9b8" stroke-width="3"/>
+          <circle cx="-10" cy="-32" r="9" fill="#ffe9b8"/>
+          <circle cx="5" cy="-40" r="10" fill="#ffe9b8"/>
+          <circle cx="18" cy="-30" r="8" fill="#ffe9b8"/>
+        </g>
+
+        <!-- claquete -->
+        <g transform="translate(620,90) rotate(-8)">
+          <rect x="0" y="26" width="140" height="90" rx="6" fill="#1a0303" stroke="#f2b13a" stroke-width="3"/>
+          <rect x="0" y="0" width="140" height="26" fill="#f2b13a"/>
+          <path d="M0 26 l20 -26 l16 0 l-20 26z M40 26 l20 -26 l16 0 l-20 26z M80 26 l20 -26 l16 0 l-20 26z M120 26 l14 -18 l6 0 l-14 18z" fill="#1a0303"/>
+        </g>
+      </svg>
     </div>
+    <p style="text-align:center; margin-top:18px; color:var(--gold-light); font-family:'Bebas Neue'; font-size:22px; letter-spacing:2px;">
+      QUALQUER APARELHO, EM QUALQUER LUGAR
+    </p>
   </section>
 
   <div class="ticker-wrap">
@@ -269,6 +390,59 @@
       <span>INFANTIL <b>•</b></span><span>NOTÍCIAS <b>•</b></span>
     </div>
   </div>
+
+  <section id="destaques">
+    <div class="section-head">
+      <div class="eyebrow">Selecionados pra você</div>
+      <h2>Destaques da semana</h2>
+      <p>Uma amostra do catálogo. Substitua as imagens abaixo pelas capas reais quando quiser.</p>
+    </div>
+
+    <div class="destaques-grid">
+      <div class="destaques-lista">
+        <div class="destaque-item">
+          <div class="thumb"></div>
+          <div><h4>Destaque 1</h4><p>Descrição curta do título em destaque.</p></div>
+        </div>
+        <div class="destaque-item">
+          <div class="thumb"></div>
+          <div><h4>Destaque 2</h4><p>Descrição curta do título em destaque.</p></div>
+        </div>
+        <div class="destaque-item">
+          <div class="thumb"></div>
+          <div><h4>Destaque 3</h4><p>Descrição curta do título em destaque.</p></div>
+        </div>
+        <div class="destaque-item">
+          <div class="thumb"></div>
+          <div><h4>Destaque 4</h4><p>Descrição curta do título em destaque.</p></div>
+        </div>
+      </div>
+
+      <div class="destaque-principal">
+        <div class="scrim"></div>
+        <div class="info">
+          <h3>Título em Destaque</h3>
+          <p>Espaço para uma sinopse curta do conteúdo principal da semana. Troque o fundo pela capa real editando a imagem "capas/destaque-principal.jpg".</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="carrossel-head">
+      <h3>Mais assistidos</h3>
+      <div class="carrossel-arrows">
+        <button onclick="document.getElementById('carrosselTrack').scrollBy({left:-320,behavior:'smooth'})">‹</button>
+        <button onclick="document.getElementById('carrosselTrack').scrollBy({left:320,behavior:'smooth'})">›</button>
+      </div>
+    </div>
+    <div class="carrossel-track" id="carrosselTrack">
+      <div class="poster-card"><div class="poster-cover" style="background-image:url('capas/mais-assistido-1.jpg')"></div><p>Título 1</p></div>
+      <div class="poster-card"><div class="poster-cover" style="background-image:url('capas/mais-assistido-2.jpg')"></div><p>Título 2</p></div>
+      <div class="poster-card"><div class="poster-cover" style="background-image:url('capas/mais-assistido-3.jpg')"></div><p>Título 3</p></div>
+      <div class="poster-card"><div class="poster-cover" style="background-image:url('capas/mais-assistido-4.jpg')"></div><p>Título 4</p></div>
+      <div class="poster-card"><div class="poster-cover" style="background-image:url('capas/mais-assistido-5.jpg')"></div><p>Título 5</p></div>
+      <div class="poster-card"><div class="poster-cover" style="background-image:url('capas/mais-assistido-6.jpg')"></div><p>Título 6</p></div>
+    </div>
+  </section>
 
   <section id="categorias">
     <div class="section-head">
